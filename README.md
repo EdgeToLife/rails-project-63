@@ -1,6 +1,7 @@
 # HexletCode
 
-TODO: Delete this and the text below, and describe your gem
+[![main workflow](https://github.com/EdgeToLife/rails-project-63/actions/workflows/main.yml/badge.svg)](https://github.com/EdgeToLife/hexlet-ci-app/actions/workflows/default.yml)
+[![hexlet-check workflow](https://github.com/EdgeToLife/rails-project-63/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/EdgeToLife/hexlet-ci-app/actions/workflows/default.yml)
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/hexlet_code`. To experiment with that code, run `bin/console` for an interactive prompt.
 
