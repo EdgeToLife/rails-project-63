@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-14
+    runs-on: ubuntu-latest
     name: Ruby ${{ matrix.ruby }}
     strategy:
       matrix:
@@ -29,3 +29,4 @@ jobs:
       run: make lint
     - name: Run tests
       run: make test
+      
