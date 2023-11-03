@@ -39,4 +39,8 @@ module HexletCode
       params = params.any? ? " #{params.join(" ")}" : ""
     end
   end
+
+  def self.form_for(user, hash = {})
+    form = hash.empty? ? "<form action=\"#\" method=\"post\"></form>" : "<form action=\"#{hash.fetch(:url)}\" method=\"post\"></form>"
+  end
 end
