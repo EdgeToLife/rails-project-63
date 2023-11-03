@@ -6,7 +6,7 @@ require_relative "../lib/hexlet_code"
 class TestHexletCode < Minitest::Test
   User = Struct.new(:name, :job, keyword_init: true)
   def setup
-    @user = User.new name: 'rob'
+    @user = User.new name: "rob"
   end
 
   def test_that_it_has_a_version_number
@@ -52,13 +52,13 @@ class TestHexletCode < Minitest::Test
   def test_form_for
     expected = "<form action=\"#\" method=\"post\"></form>"
     actual = HexletCode.form_for @user do |f|
-  end
+    end
     assert_equal expected, actual, "Expected #{expected}, but got #{actual}"
   end
 
   def test_form_for_with_url
     expected = "<form action=\"/users\" method=\"post\"></form>"
-    actual = HexletCode.form_for @user, url: '/users' do |f|
+    actual = HexletCode.form_for @user, url: "/users" do |f|
     end
     assert_equal expected, actual, "Expected #{expected}, but got #{actual}"
   end

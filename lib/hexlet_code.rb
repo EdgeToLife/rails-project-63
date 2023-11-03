@@ -2,6 +2,7 @@
 
 require_relative "hexlet_code/version"
 
+# The HexletCode module
 module HexletCode
   class Error < StandardError; end
 
@@ -40,7 +41,11 @@ module HexletCode
     end
   end
 
-  def self.form_for(user, hash = {})
-    form = hash.empty? ? "<form action=\"#\" method=\"post\"></form>" : "<form action=\"#{hash.fetch(:url)}\" method=\"post\"></form>"
+  def self.form_for(_user, hash = {})
+    if hash.empty?
+      "<form action=\"#\" method=\"post\"></form>"
+    else
+      "<form action=\"#{hash.fetch(:url)}\" method=\"post\"></form>"
+    end
   end
 end

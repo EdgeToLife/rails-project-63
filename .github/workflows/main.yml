@@ -26,7 +26,7 @@ jobs:
     - name: Run the default task
       run: bundle exec rake
     - name: Run Rubocop Linter
-      run: bundle exec rubocop
+      run: make lint
     - name: Run tests
       run: make test
       

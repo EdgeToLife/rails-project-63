@@ -3,7 +3,7 @@ install:
 	bundle install
 
 lint: 
-	rubocop
+	bundle exec rubocop
 
 test:
 	ruby ./test/test_hexlet_code.rb
