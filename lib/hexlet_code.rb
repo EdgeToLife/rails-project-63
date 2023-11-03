@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "hexlet_code/version"
+require 'action_view'
 
 # The HexletCode module
 module HexletCode
@@ -41,11 +42,24 @@ module HexletCode
     end
   end
 
-  def self.form_for(_user, hash = {})
+  def self.form_for(user, hash = {})
+    html = ""
     if hash.empty?
-      "<form action=\"#\" method=\"post\"></form>"
+      html += "<form action=\"#\" method=\"post\">"
+      html += "#{yield}"
+      html += "</form>"
     else
-      "<form action=\"#{hash.fetch(:url)}\" method=\"post\"></form>"
+      html += "<form action=\"#{hash.fetch(:url)}\" method=\"post\"></form>"
+    end
+  end
+
+  def self.input(feild, hash = {})
+    html = ""
+    if hash.empty?
+      html += "<input name=\"name\" type=\"text\" value=\"#{hash.fetch(:name)}\">"
+    else
+      params = build_attributes hash
+      html += "<input name=\"name\" type=\"text\" value=\"#{hash.fetch(:name)}\"#{params}>"
     end
   end
 end
