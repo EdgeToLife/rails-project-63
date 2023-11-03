@@ -5,9 +5,30 @@ require_relative "hexlet_code/version"
 module HexletCode
   class Error < StandardError; end
 
+  # The Tag class is an HTML tag with attributes and content.
+  # It is used to generate HTML code from Ruby objects.
   class Tag
-    result = ''
+    # rubocop:disable Metrics/MethodLength
     def self.build(html_tag, *html_options)
+      params = build_attributes html_options
+
+      case html_tag
+      when "br"
+        result = "<br>"
+      when "img"
+        result = "<img#{params}>"
+      when "input"
+        result = "<input#{params}>"
+      when "label"
+        result = "<label#{params}>#{yield}</label>"
+      when "div"
+        result = "<div></div>"
+      end
+      result
+    end
+    # rubocop:enable Metrics/MethodLength
+
+    def self.build_attributes(html_options)
       params = []
 
       html_options.each do |p|
@@ -15,25 +36,7 @@ module HexletCode
           params << "#{key}=\"#{value}\""
         end
       end
-
-      if params.any?
-        params = " " + params.join(" ")
-      else
-        params = ''
-      end
-
-      if html_tag == 'br'
-        result = '<br>'
-      elsif html_tag == 'img'
-        result = "<img#{params}>"
-      elsif html_tag == 'input'
-        result = "<input#{params}>"
-      elsif html_tag == 'label'
-        result = "<label#{params}>#{yield}</label>"
-      elsif html_tag == 'div'
-        result = '<div></div>'
-      end
+      params = params.any? ? " #{params.join(" ")}" : ""
     end
-    result
   end
 end
