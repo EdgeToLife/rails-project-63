@@ -12,7 +12,7 @@ module HexletCode
   class Tag
     # rubocop:disable Metrics/MethodLength
     def self.build(html_tag, *html_options)
-      params = build_attributes html_options
+      params = HexletCode::build_attributes html_options
 
       case html_tag
       when "br"
@@ -29,37 +29,46 @@ module HexletCode
       result
     end
     # rubocop:enable Metrics/MethodLength
-
-    def self.build_attributes(html_options)
-      params = []
-
-      html_options.each do |p|
-        p.each do |key, value|
-          params << "#{key}=\"#{value}\""
-        end
-      end
-      params = params.any? ? " #{params.join(" ")}" : ""
-    end
   end
 
   def self.form_for(user, hash = {})
     html = ""
     if hash.empty?
-      html += "<form action=\"#\" method=\"post\">"
-      html += "#{yield}"
-      html += "</form>"
+      html = "<form action=\"#\" method=\"post\">"
     else
-      html += "<form action=\"#{hash.fetch(:url)}\" method=\"post\"></form>"
+      html = "<form action=\"#{hash.fetch(:url)}\" method=\"post\">"
     end
+    builder = FormBuilder.new(user)
+    html += (yield builder).to_s
+    html += "</form>"
   end
 
-  def self.input(feild, hash = {})
-    html = ""
-    if hash.empty?
-      html += "<input name=\"name\" type=\"text\" value=\"#{hash.fetch(:name)}\">"
-    else
-      params = build_attributes hash
-      html += "<input name=\"name\" type=\"text\" value=\"#{hash.fetch(:name)}\"#{params}>"
+  def self.build_attributes(html_options)
+    params = []
+    html_options.each do |p|
+      p.each do |key, value|
+        params << "#{key}=\"#{value}\""
+      end
+    end
+    params = params.any? ? " #{params.join(" ")}" : ""
+  end
+
+  class FormBuilder
+    def initialize(user)
+      @user = user
+      @html = ""
+    end
+
+    def input(name, options = {})
+      @user.public_send(name)
+      if options.empty?
+        @html += "<input name=\"#{name}\" type=\"text\" value=\"#{@user[name]}\">"
+      elsif options[:as] == :text
+        @html += "<textarea name=\"#{name}\" cols=\"20\" rows=\"40\">#{@user[name]}</textarea>"
+      else
+        attr = HexletCode::build_attributes [options]
+        @html += "<input name=\"#{name}\" type=\"text\" value=\"#{@user[name]}\"#{attr}>"
+      end
     end
   end
 end
