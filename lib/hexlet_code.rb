@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "hexlet_code/version"
-require 'action_view'
+require "action_view"
 
 # The HexletCode module
 module HexletCode
@@ -12,7 +12,7 @@ module HexletCode
   class Tag
     # rubocop:disable Metrics/MethodLength
     def self.build(html_tag, *html_options)
-      params = HexletCode::build_attributes html_options
+      params = HexletCode.build_attributes html_options
 
       case html_tag
       when "br"
@@ -32,15 +32,14 @@ module HexletCode
   end
 
   def self.form_for(user, hash = {})
-    html = ""
-    if hash.empty?
-      html = "<form action=\"#\" method=\"post\">"
-    else
-      html = "<form action=\"#{hash.fetch(:url)}\" method=\"post\">"
-    end
+    html = if hash.empty?
+             "<form action=\"#\" method=\"post\">"
+           else
+             "<form action=\"#{hash.fetch(:url)}\" method=\"post\">"
+           end
     builder = FormBuilder.new(user)
     html += (yield builder).to_s
-    html += "</form>"
+    "#{html}</form>"
   end
 
   def self.build_attributes(html_options)
@@ -53,22 +52,30 @@ module HexletCode
     params = params.any? ? " #{params.join(" ")}" : ""
   end
 
+  # Form Builder class
   class FormBuilder
     def initialize(user)
       @user = user
       @html = ""
     end
 
+    # rubocop:disable Metrics/MethodLength
+
     def input(name, options = {})
       @user.public_send(name)
       if options.empty?
         @html += "<input name=\"#{name}\" type=\"text\" value=\"#{@user[name]}\">"
       elsif options[:as] == :text
-        @html += "<textarea name=\"#{name}\" cols=\"20\" rows=\"40\">#{@user[name]}</textarea>"
+        attr = { cols: 20, rows: 40 }
+        options.delete(:as)
+        attr.merge!(options)
+        attr = HexletCode.build_attributes [attr]
+        @html += "<textarea name=\"#{name}\"#{attr}>#{@user[name]}</textarea>"
       else
-        attr = HexletCode::build_attributes [options]
+        attr = HexletCode.build_attributes [options]
         @html += "<input name=\"#{name}\" type=\"text\" value=\"#{@user[name]}\"#{attr}>"
       end
     end
+    # rubocop:enable Metrics/MethodLength
   end
 end

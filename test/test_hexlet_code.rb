@@ -7,7 +7,7 @@ class TestHexletCode < Minitest::Test
   User = Struct.new(:name, :job, :gender, keyword_init: true)
 
   def setup
-    @user = User.new name: 'rob', job: 'hexlet', gender: 'm'
+    @user = User.new name: "rob", job: "hexlet", gender: "m"
   end
 
   def test_that_it_has_a_version_number
@@ -81,25 +81,26 @@ class TestHexletCode < Minitest::Test
 <input name=\"name\" type=\"text\" value=\"rob\" class=\"user-input\">\
 <input name=\"job\" type=\"text\" value=\"hexlet\">\
 </form>"
-    actual = HexletCode.form_for @user, url: '#' do |f|
-      f.input :name, class: 'user-input'
+    actual = HexletCode.form_for @user, url: "#" do |f|
+      f.input :name, class: "user-input"
       f.input :job
     end
     assert_equal expected, actual, "Expected #{expected}, but got #{actual}"
   end
 
   def test_form_for_with_input_and_default_values
-    expected = "<form action=\"#\" method=\"post\">
-<textarea cols=\"50\" rows=\"50\" name=\"job\">hexlet</textarea>
+    expected = "<form action=\"#\" method=\"post\">\
+<textarea name=\"job\" cols=\"50\" rows=\"50\">hexlet</textarea>\
 </form>"
-    actual = HexletCode.form_for @user, url: '#' do |f|
+    actual = HexletCode.form_for @user, url: "#" do |f|
       f.input :job, as: :text, rows: 50, cols: 50
     end
+    assert_equal expected, actual, "Expected #{expected}\nActual   #{actual}"
   end
 
   def test_form_for_with_input_and_no_method_error
     assert_raises(NoMethodError) do
-      HexletCode.form_for @user, url: '#' do |f|
+      HexletCode.form_for @user, url: "#" do |f|
         f.input :name
         f.input :job, as: :text
         # Поля age у пользователя нет
