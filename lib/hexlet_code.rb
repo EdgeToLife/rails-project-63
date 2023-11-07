@@ -62,6 +62,7 @@ module HexletCode
 
     def input(name, options = {})
       @user.public_send(name)
+      @html += "<label for=\"#{name}\">#{name.capitalize}</label>"
       if options.empty?
         @html += "<input name=\"#{name}\" type=\"text\" value=\"#{@user[name]}\">"
       elsif options[:as] == :text
@@ -76,5 +77,9 @@ module HexletCode
       end
     end
     # rubocop:enable Metrics/MethodLength
+
+    def submit(name = "Save")
+      @html += "<input type=\"submit\" value=\"#{name}\">"
+    end
   end
 end

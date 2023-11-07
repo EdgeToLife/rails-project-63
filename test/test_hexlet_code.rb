@@ -65,33 +65,25 @@ class TestHexletCode < Minitest::Test
   end
 
   def test_form_for_with_input
-    expected = "<form action=\"#\" method=\"post\">\
-<input name=\"name\" type=\"text\" value=\"rob\">\
-<textarea name=\"job\" cols=\"20\" rows=\"40\">hexlet</textarea>\
-</form>"
+    expected = File.read("./test/html-fixtures/test_form_for_with_input.html")
     actual = HexletCode.form_for @user do |f|
       f.input :name
       f.input :job, as: :text
     end
-    assert_equal expected, actual, "Expected #{expected}, but got #{actual}"
+    assert_equal expected, actual, "Expected #{expected}\nActual   #{actual}"
   end
 
   def test_form_for_with_input_and_url
-    expected = "<form action=\"#\" method=\"post\">\
-<input name=\"name\" type=\"text\" value=\"rob\" class=\"user-input\">\
-<input name=\"job\" type=\"text\" value=\"hexlet\">\
-</form>"
+    expected = File.read("./test/html-fixtures/test_form_for_with_input_and_url.html")
     actual = HexletCode.form_for @user, url: "#" do |f|
       f.input :name, class: "user-input"
       f.input :job
     end
-    assert_equal expected, actual, "Expected #{expected}, but got #{actual}"
+    assert_equal expected, actual, "Expected #{expected}\nActual   #{actual}"
   end
 
   def test_form_for_with_input_and_default_values
-    expected = "<form action=\"#\" method=\"post\">\
-<textarea name=\"job\" cols=\"50\" rows=\"50\">hexlet</textarea>\
-</form>"
+    expected = File.read("./test/html-fixtures/test_form_for_with_input_and_default_values.html")
     actual = HexletCode.form_for @user, url: "#" do |f|
       f.input :job, as: :text, rows: 50, cols: 50
     end
@@ -107,5 +99,25 @@ class TestHexletCode < Minitest::Test
         f.input :age
       end
     end
+  end
+
+  def test_form_for_with_input_and_submit
+    expected = File.read("./test/html-fixtures/test_form_for_with_input_and_submit.html")
+    actual = HexletCode.form_for @user do |f|
+      f.input :name
+      f.input :job, as: :text
+      f.submit
+    end
+    assert_equal expected, actual, "Expected #{expected}\nActual   #{actual}"
+  end
+
+  def test_form_for_with_input_and_renamed_submit
+    expected = File.read("./test/html-fixtures/test_form_for_with_input_and_renamed_submit.html")
+    actual = HexletCode.form_for @user do |f|
+      f.input :name
+      f.input :job, as: :text
+      f.submit "Wow"
+    end
+    assert_equal(expected.to_s, actual.to_s)
   end
 end
