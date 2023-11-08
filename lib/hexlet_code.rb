@@ -31,11 +31,9 @@ module HexletCode
   end
 
   def self.form_for(user, hash = {})
-    html = if hash.empty?
-             "<form action=\"#\" method=\"post\">"
-           else
-             "<form action=\"#{hash.fetch(:url)}\" method=\"post\">"
-           end
+    url = hash.fetch(:url, "#")
+    method = hash.fetch(:method, "post")
+    html = "<form action=\"#{url}\" method=\"#{method}\">"
     builder = FormBuilder.new(user)
     html += (yield builder).to_s
     "#{html}</form>"
