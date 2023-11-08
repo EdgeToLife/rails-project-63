@@ -32,8 +32,11 @@ module HexletCode
 
   def self.form_for(user, hash = {})
     url = hash.fetch(:url, "#")
+    hash.delete(:url)
     method = hash.fetch(:method, "post")
-    html = "<form action=\"#{url}\" method=\"#{method}\">"
+    hash.delete(:method)
+    attr = HexletCode.build_attributes [hash]
+    html = "<form action=\"#{url}\" method=\"#{method}\"#{attr}>"
     builder = FormBuilder.new(user)
     html += (yield builder).to_s
     "#{html}</form>"

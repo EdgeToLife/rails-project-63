@@ -124,7 +124,8 @@ class TestHexletCode < Minitest::Test
 
   def test_form_for_with_submit
     user = User.new name: "rob"
-    expected = "<form action=\"/profile\" method=\"get\"><input type=\"submit\" value=\"Save\"></form>"
+    expected = "<form action=\"/profile\" method=\"get\" class=\"hexlet-form\">\
+<input type=\"submit\" value=\"Save\"></form>"
     actual = HexletCode.form_for(user, url: "/profile", method: :get, class: "hexlet-form", &(->(f) { f.submit }))
     assert_equal(expected.to_s, actual.to_s)
   end
