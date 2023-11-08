@@ -53,15 +53,19 @@ class TestHexletCode < Minitest::Test
 
   def test_form_for
     expected = "<form action='#' method='post'></form>"
+    # rubocop:disable Lint/EmptyBlock
     actual = HexletCode.form_for @user do |f|
     end
+    # rubocop:enable Lint/EmptyBlock
     assert_equal expected, actual, "Expected #{expected}, but got #{actual}"
   end
 
   def test_form_for_with_url
     expected = "<form action='/users' method='post'></form>"
+    # rubocop:disable Lint/EmptyBlock
     actual = HexletCode.form_for @user, url: '/users' do |f|
     end
+    # rubocop:enable Lint/EmptyBlock
     assert_equal expected, actual, "Expected #{expected}, but got #{actual}"
   end
 

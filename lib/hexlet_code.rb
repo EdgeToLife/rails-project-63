@@ -9,7 +9,6 @@ module HexletCode
   # The Tag class is an HTML tag with attributes and content.
   # It is used to generate HTML code from Ruby objects.
   class Tag
-    # rubocop:disable Metrics/MethodLength
     def self.build(html_tag, *html_options)
       params = HexletCode.build_attributes html_options
 
@@ -27,7 +26,6 @@ module HexletCode
       end
       result
     end
-    # rubocop:enable Metrics/MethodLength
   end
 
   def self.form_for(user, hash = {})
@@ -49,7 +47,7 @@ module HexletCode
         params << "#{key}='#{value}'"
       end
     end
-    params = params.any? ? " #{params.join(" ")}" : ''
+    params = params.any? ? " #{params.join(' ')}" : ''
   end
 
   # Form Builder class
@@ -58,8 +56,6 @@ module HexletCode
       @user = user
       @html = ''
     end
-
-    # rubocop:disable Metrics/MethodLength
 
     def input(name, options = {})
       @user.public_send(name)
@@ -77,7 +73,6 @@ module HexletCode
         @html += "<input name='#{name}' type='text' value='#{@user[name]}'#{attr}>"
       end
     end
-    # rubocop:enable Metrics/MethodLength
 
     def submit(name = 'Save')
       @html += "<input type='submit' value='#{name}'>"
