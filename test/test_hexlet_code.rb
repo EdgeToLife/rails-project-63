@@ -3,6 +3,7 @@
 require_relative "test_helper"
 require_relative "../lib/hexlet_code"
 
+# rubocop:disable Metrics/ClassLength
 class TestHexletCode < Minitest::Test
   User = Struct.new(:name, :job, :gender, keyword_init: true)
 
@@ -122,11 +123,10 @@ class TestHexletCode < Minitest::Test
   end
 
   def test_form_for_with_submit
-    user = User.new name: 'rob'
+    user = User.new name: "rob"
     expected = "<form action=\"/profile\" method=\"get\"><input type=\"submit\" value=\"Save\"></form>"
-    actual = HexletCode.form_for user, url: "/profile", method: :get, class: "hexlet-form" do |f|
-      f.submit
-    end
+    actual = HexletCode.form_for(user, url: "/profile", method: :get, class: "hexlet-form", &(->(f) { f.submit }))
     assert_equal(expected.to_s, actual.to_s)
   end
 end
+# rubocop:enable Metrics/ClassLength
