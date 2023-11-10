@@ -1,32 +1,12 @@
 # frozen_string_literal: true
 
 require_relative 'hexlet_code/version'
+require_relative 'tag_class'
 
 # The HexletCode module
 module HexletCode
   class Error < StandardError; end
-
-  # The Tag class is an HTML tag with attributes and content.
-  # It is used to generate HTML code from Ruby objects.
-  class Tag
-    def self.build(html_tag, *html_options)
-      params = HexletCode.build_attributes html_options
-
-      case html_tag
-      when 'br'
-        result = '<br>'
-      when 'img'
-        result = "<img#{params}>"
-      when 'input'
-        result = "<input#{params}>"
-      when 'label'
-        result = "<label#{params}>#{yield}</label>"
-      when 'div'
-        result = '<div></div>'
-      end
-      result
-    end
-  end
+  include Tag
 
   def self.form_for(user, hash = {})
     url = hash.fetch(:url, '#')
