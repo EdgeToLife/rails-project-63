@@ -70,7 +70,7 @@ class TestHexletCode < Minitest::Test
   end
 
   def test_form_for_with_input
-    expected = File.read('./test/html-fixtures/test_form_for_with_input.html')
+    expected = get_fixture 'test_form_for_with_input'
     actual = HexletCode.form_for @user do |f|
       f.input :name
       f.input :job, as: :text
@@ -79,7 +79,7 @@ class TestHexletCode < Minitest::Test
   end
 
   def test_form_for_with_input_and_url
-    expected = File.read('./test/html-fixtures/test_form_for_with_input_and_url.html')
+    expected = get_fixture 'test_form_for_with_input_and_url'
     actual = HexletCode.form_for @user, url: '#' do |f|
       f.input :name, class: 'user-input'
       f.input :job
@@ -88,7 +88,7 @@ class TestHexletCode < Minitest::Test
   end
 
   def test_form_for_with_input_and_default_values
-    expected = File.read('./test/html-fixtures/test_form_for_with_input_and_default_values.html')
+    expected = get_fixture 'test_form_for_with_input_and_default_values'
     actual = HexletCode.form_for @user, url: '#' do |f|
       f.input :job, as: :text, rows: 50, cols: 50
     end
@@ -107,7 +107,7 @@ class TestHexletCode < Minitest::Test
   end
 
   def test_form_for_with_input_and_submit
-    expected = File.read('./test/html-fixtures/test_form_for_with_input_and_submit.html')
+    expected = get_fixture 'test_form_for_with_input_and_submit'
     actual = HexletCode.form_for @user do |f|
       f.input :name
       f.input :job, as: :text
@@ -117,7 +117,7 @@ class TestHexletCode < Minitest::Test
   end
 
   def test_form_for_with_input_and_renamed_submit
-    expected = File.read('./test/html-fixtures/test_form_for_with_input_and_renamed_submit.html')
+    expected = get_fixture 'test_form_for_with_input_and_renamed_submit'
     actual = HexletCode.form_for @user do |f|
       f.input :name
       f.input :job, as: :text
@@ -128,7 +128,7 @@ class TestHexletCode < Minitest::Test
 
   def test_form_for_with_submit
     user = User.new name: 'rob'
-    expected = File.read('./test/html-fixtures/test_form_for_with_submit.html')
+    expected = get_fixture 'test_form_for_with_submit'
     actual = HexletCode.form_for(user, url: '/profile', method: :get, class: 'hexlet-form', &(->(f) { f.submit }))
     assert_equal(expected.to_s, actual.to_s)
   end
