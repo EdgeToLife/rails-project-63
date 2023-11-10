@@ -19,7 +19,104 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ## Usage
 
-TODO: Write usage instructions here
+You can use the HexletCode module as follows:
+
+### HexletCode::Tag.build
+
+The build method returns the html code of the specified html tag.
+The following tags are available:
+* br
+* img
+* input
+* label
+* div
+
+Usage examples:
+
+```
+HexletCode::Tag.build('br')
+```
+Generates the html code of the br tag
+```
+<br>
+```
+Tags can be created with parameters
+```
+HexletCode::Tag.build('img', src: 'path/to/image')
+```
+Generates the html code of the img tag
+```
+<img src='path/to/image'>
+```
+The value of the tag can be set as follows
+```
+HexletCode::Tag.build('label') { 'Simple text' }
+```
+You get html code like this:
+```
+<label>Simple text</label>
+```
+### HexletCode.form_for
+Method generates html form code. 
+
+The method accepts a Struct class object and block as mandatory arguments and an optional hash with additional form attributes.
+
+The default attribute values for the form are:
+1. action='#'
+2. method='post'
+
+These values can be overridden by passing them when calling the form_form method.
+
+Example of use
+
+Creating an empty form
+```
+User = Struct.new(:name, :job, :gender, keyword_init: true)
+user = User.new name: 'foo', job: 'bar', gender: 'm'
+HexletCode.form_for user do |f|
+end
+```
+The method will return this html code:
+```
+<form action='#' method='post'>
+```
+Creating an empty form with url /some_path and get mthod
+```
+User = Struct.new(:name, :job, :gender, keyword_init: true)
+user = User.new name: 'foo', job: 'bar', gender: 'm'
+HexletCode.form_for user, url: '/some_path', method: 'get' do |f|
+end
+```
+The method will return this html code:
+```
+<form action='/some_path' method='get'></form>
+```
+
+You can add elements using the instance methods of the FormBuilder class.
+
+The available methods are:
+1. obj.input - adds an input field with a label. Accepts 2 arguments:
+   - name - element name (mandatory)
+   - options - optional hash with the list of element's parameters.
+   - text input field creation can be overridden by passing **as: :text**, in this case textarea element will be created with parameters **rows: 40** and **cols: 20** by default, which can also be overridden.
+2. obj.submit - adds button with Save text, which can be overridden by passing name parameter.
+
+Create a form with several elements
+```
+User = Struct.new(:name, :job, :gender, keyword_init: true)
+user = User.new name: 'foo', job: 'bar', gender: 'm'
+HexletCode.form_for user, url: '#' do |f|
+  f.input :name
+  f.input :job, as: :text, rows: 50, cols: 50
+  f.submit 'Text on button'
+end
+```
+Generates this html code
+```
+<form action='#' method='post'><label for='name'>Name</label><input name='name' type='text' value='foo'><label for='job'>Job</label><textarea name='job' cols='50' rows='50'>bar</textarea><input type='submit' value='Text on button'></form>
+```
+
+### 
 
 ## Development
 
