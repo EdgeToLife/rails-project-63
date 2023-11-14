@@ -77,7 +77,7 @@ module HexletCode
 
     def self.render_input(user, name, node)
       value = user[name]
-      attr = { type: 'text', value: value }
+      attr = { type: 'text', value: value.to_s }
       attr = node.merge(attr)
       attr = HexletCode.build_attributes [attr]
       "<input#{attr}>"
