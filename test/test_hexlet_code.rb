@@ -16,19 +16,19 @@ class TestHexletCode < Minitest::Test
   end
 
   def test_build_br
-    expected = '<br>'
+    expected = '<br></br>'
     actual = HexletCode::Tag.build('br')
     assert_equal expected, actual, "Expected #{expected}, but got #{actual}"
   end
 
   def test_build_img
-    expected = "<img src='path/to/image'>"
+    expected = "<img src='path/to/image'></img>"
     actual = HexletCode::Tag.build('img', src: 'path/to/image')
     assert_equal expected, actual, "Expected #{expected}, but got #{actual}"
   end
 
   def test_build_imput
-    expected = "<input type='submit' value='Save'>"
+    expected = "<input type='submit' value='Save'></input>"
     actual = HexletCode::Tag.build('input', type: 'submit', value: 'Save')
     assert_equal expected, actual, "Expected #{expected}, but got #{actual}"
   end
@@ -123,14 +123,14 @@ class TestHexletCode < Minitest::Test
       f.input :job, as: :text
       f.submit 'Wow'
     end
-    assert_equal(expected.to_s, actual.to_s)
+    assert_equal expected, actual, "Expected #{expected}\nActual   #{actual}"
   end
 
   def test_form_for_with_submit
     user = User.new name: 'rob'
     expected = get_fixture 'test_form_for_with_submit'
     actual = HexletCode.form_for(user, url: '/profile', method: :get, class: 'hexlet-form', &(->(f) { f.submit }))
-    assert_equal(expected.to_s, actual.to_s)
+    assert_equal expected, actual, "Expected #{expected}\nActual   #{actual}"
   end
 end
 # rubocop:enable Metrics/ClassLength
