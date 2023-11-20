@@ -2,39 +2,17 @@
 
 require_relative 'hexlet_code/version'
 require_relative 'tag'
+require_relative 'form'
 
 # The Form module
-module Form
+module HexletCode
   class Error < StandardError; end
-  include HexletCode
+  #include HexletCode
 
   def self.form_for(user, params = {})
     builder = FormBuilder.new(user)
     yield builder
     Render.to_html(user, builder.elements, params)
-  end
-
-  # Form Builder class
-  class FormBuilder
-    attr_reader :elements
-
-    def initialize(user)
-      @user = user
-      @elements = []
-    end
-
-    def add_element(element)
-      @elements << element
-    end
-
-    def input(name, options = {})
-      @user.public_send(name)
-      add_element(options.merge({ 'name' => name }))
-    end
-
-    def submit(name = 'Save')
-      add_element({ 'name' => name, 'type' => 'submit' })
-    end
   end
 
   # Form Render class
