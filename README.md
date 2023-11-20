@@ -59,7 +59,7 @@ The default attribute values for the form are:
 1. action='#'
 2. method='post'
 
-These values can be overridden by passing them when calling the form_form method.
+These values can be overridden by passing them when calling the `form_for` method.
 
 Example of use
 
