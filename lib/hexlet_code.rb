@@ -1,27 +1,17 @@
 # frozen_string_literal: true
 
 require_relative 'hexlet_code/version'
-require_relative 'tag_class'
+require_relative 'tag'
 
-# The HexletCode module
-module HexletCode
+# The Form module
+module Form
   class Error < StandardError; end
-  include Tag
+  include HexletCode
 
   def self.form_for(user, params = {})
     builder = FormBuilder.new(user)
     yield builder
     Render.to_html(user, builder.elements, params)
-  end
-
-  def self.build_attributes(options)
-    params = []
-    options.each do |p|
-      p.each do |key, value|
-        params << "#{key}='#{value}'"
-      end
-    end
-    params = params.any? ? " #{params.join(' ')}" : ''
   end
 
   # Form Builder class
@@ -52,7 +42,7 @@ module HexletCode
     def self.to_html(user, feilds, params)
       url = params.delete(:url) || '#'
       method = params.delete(:method) || 'post'
-      form_attr = HexletCode.build_attributes [params]
+      form_attr = HexletCode::Tag.build_attributes [params]
       html = "<form action='#{url}' method='#{method}'#{form_attr}>"
       html += render_feilds feilds, user
       "#{html}</form>"
@@ -79,7 +69,7 @@ module HexletCode
       value = user[name]
       attr = { type: 'text', value: value.to_s }
       attr = node.merge(attr)
-      attr = HexletCode.build_attributes [attr]
+      attr = HexletCode::Tag.build_attributes [attr]
       "<input#{attr}>"
     end
 
@@ -87,7 +77,7 @@ module HexletCode
       node.delete(:as)
       attr = { cols: 20, rows: 40 }
       attr = attr.merge(node)
-      attr = HexletCode.build_attributes [attr]
+      attr = HexletCode::Tag.build_attributes [attr]
       "<textarea#{attr}>#{user[name]}</textarea>"
     end
 
