@@ -24,6 +24,12 @@ You can use the HexletCode module as follows:
 ### HexletCode::Tag.build
 
 The build method returns the html code of the specified html tag.
+The following tags are available:
+* br
+* img
+* input
+* label
+* div
 
 Usage examples:
 
@@ -32,7 +38,7 @@ HexletCode::Tag.build('br')
 ```
 Generates the html code of the br tag
 ```
-<br></br>
+<br>
 ```
 Tags can be created with parameters
 ```
@@ -40,7 +46,7 @@ HexletCode::Tag.build('img', src: 'path/to/image')
 ```
 Generates the html code of the img tag
 ```
-<img src='path/to/image'></img>
+<img src='path/to/image'>
 ```
 The value of the tag can be set as follows
 ```
