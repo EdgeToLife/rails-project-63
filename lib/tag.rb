@@ -4,6 +4,12 @@
 module HexletCode
   # The Tag class is an HTML tag with attributes and content.
   # It is used to generate HTML code from Ruby objects.
+  def self.form_for(user, params = {})
+      builder = Form::FormBuilder.new(user)
+      yield builder
+      Form::Render.to_html(user, builder.elements, params)
+  end
+
   class Tag
     def self.build(tag, *options)
       params = build_attributes options

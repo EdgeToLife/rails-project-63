@@ -54,7 +54,7 @@ class TestHexletCode < Minitest::Test
   def test_form_for
     expected = "<form action='#' method='post'></form>"
     # rubocop:disable Lint/EmptyBlock
-    actual = Form.form_for @user do |f|
+    actual = HexletCode.form_for @user do |f|
     end
     # rubocop:enable Lint/EmptyBlock
     assert_equal expected, actual, "Expected #{expected}, but got #{actual}"
@@ -63,7 +63,7 @@ class TestHexletCode < Minitest::Test
   def test_form_for_with_url
     expected = "<form action='/users' method='post'></form>"
     # rubocop:disable Lint/EmptyBlock
-    actual = Form.form_for @user, url: '/users' do |f|
+    actual = HexletCode.form_for @user, url: '/users' do |f|
     end
     # rubocop:enable Lint/EmptyBlock
     assert_equal expected, actual, "Expected #{expected}, but got #{actual}"
@@ -71,7 +71,7 @@ class TestHexletCode < Minitest::Test
 
   def test_form_for_with_input
     expected = get_fixture 'test_form_for_with_input'
-    actual = Form.form_for @user do |f|
+    actual = HexletCode.form_for @user do |f|
       f.input :name
       f.input :job, as: :text
     end
@@ -80,7 +80,7 @@ class TestHexletCode < Minitest::Test
 
   def test_form_for_with_input_and_url
     expected = get_fixture 'test_form_for_with_input_and_url'
-    actual = Form.form_for @user, url: '#' do |f|
+    actual = HexletCode.form_for @user, url: '#' do |f|
       f.input :name, class: 'user-input'
       f.input :job
     end
@@ -89,7 +89,7 @@ class TestHexletCode < Minitest::Test
 
   def test_form_for_with_input_and_default_values
     expected = get_fixture 'test_form_for_with_input_and_default_values'
-    actual = Form.form_for @user, url: '#' do |f|
+    actual = HexletCode.form_for @user, url: '#' do |f|
       f.input :job, as: :text, rows: 50, cols: 50
     end
     assert_equal expected, actual, "Expected #{expected}\nActual   #{actual}"
@@ -97,7 +97,7 @@ class TestHexletCode < Minitest::Test
 
   def test_form_for_with_input_and_no_method_error
     assert_raises(NoMethodError) do
-      Form.form_for @user, url: '#' do |f|
+      HexletCode.form_for @user, url: '#' do |f|
         f.input :name
         f.input :job, as: :text
         # Поля age у пользователя нет
@@ -108,7 +108,7 @@ class TestHexletCode < Minitest::Test
 
   def test_form_for_with_input_and_submit
     expected = get_fixture 'test_form_for_with_input_and_submit'
-    actual = Form.form_for @user do |f|
+    actual = HexletCode.form_for @user do |f|
       f.input :name
       f.input :job, as: :text
       f.submit
@@ -118,7 +118,7 @@ class TestHexletCode < Minitest::Test
 
   def test_form_for_with_input_and_renamed_submit
     expected = get_fixture 'test_form_for_with_input_and_renamed_submit'
-    actual = Form.form_for @user do |f|
+    actual = HexletCode.form_for @user do |f|
       f.input :name
       f.input :job, as: :text
       f.submit 'Wow'
@@ -129,7 +129,7 @@ class TestHexletCode < Minitest::Test
   def test_form_for_with_submit
     user = User.new name: 'rob'
     expected = get_fixture 'test_form_for_with_submit'
-    actual = Form.form_for(user, url: '/profile', method: :get, class: 'hexlet-form', &(->(f) { f.submit }))
+    actual = HexletCode.form_for(user, url: '/profile', method: :get, class: 'hexlet-form', &(->(f) { f.submit }))
     assert_equal expected, actual, "Expected #{expected}\nActual   #{actual}"
   end
 end
