@@ -2,7 +2,6 @@
 
 # The HexletCode module
 module HexletCode
-
   # The Tag class is an HTML tag with attributes and content.
   # It is used to generate HTML code from Ruby objects.
   class Tag
