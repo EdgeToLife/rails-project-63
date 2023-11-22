@@ -14,7 +14,7 @@ module HexletCode
   def self.form_for(user, params = {})
     builder = FormBuilder.new(user)
     yield builder
-    render = Render.new(user, builder.elements)
+    render = Render.new(user, builder.nodes)
     render.to_html(params)
   end
 
@@ -37,22 +37,7 @@ module HexletCode
     def render(nodes, user)
       html = ''
       nodes.each do |node|
-        html += build_tag(user, node)
-      end
-      html
-    end
-
-    def build_tag(user, node)
-      html = ''
-      name = node['name']
-      if node[:as] == :text
-        html += Label.render(name)
-        html += Text.render(user, name, node)
-      elsif node['type'] == 'submit'
-        html += Submit.render(node)
-      else
-        html += Label.render(name)
-        html += Input.render(user, name, node)
+        html += Tag.build_tag(user, node)
       end
       html
     end

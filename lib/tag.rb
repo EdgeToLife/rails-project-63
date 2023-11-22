@@ -19,5 +19,20 @@ module HexletCode
       end
       params = params.any? ? " #{params.join(' ')}" : ''
     end
+
+    def self.build_tag(user, node)
+      html = ''
+      name = node['name']
+      if node[:as] == :text
+        html += Label.render(name)
+        html += Text.render(user, name, node)
+      elsif node['type'] == 'submit'
+        html += Submit.render(node)
+      else
+        html += Label.render(name)
+        html += Input.render(user, name, node)
+      end
+      html
+    end
   end
 end
