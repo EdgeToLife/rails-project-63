@@ -4,8 +4,12 @@
 module HexletCode
   # The Label tag render
   class Label
-    def self.render(name)
-      "<label for='#{name}'>#{name.capitalize}</label>"
+    attr_reader :tag, :attr, :value
+
+    def initialize(name)
+      @tag = 'label'
+      @attr = { 'for' => name }
+      @value = name.capitalize
     end
   end
 end

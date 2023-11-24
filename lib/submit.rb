@@ -4,8 +4,12 @@
 module HexletCode
   # The Submit tag render
   class Submit
-    def self.render(node)
-      "<input type='submit' value='#{node['name']}'>"
+    attr_reader :tag, :attr, :value
+
+    def initialize(name)
+      @tag = 'input'
+      @attr = { 'type' => 'submit', 'value' => name }
+      @value = nil
     end
   end
 end

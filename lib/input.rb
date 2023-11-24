@@ -2,14 +2,15 @@
 
 # The HexletCode module
 module HexletCode
-  # The Input tag render
+  # The Input tag class
   class Input
-    def self.render(user, name, node)
-      value = user[name]
-      attr = { type: 'text', value: value.to_s }
-      attr = node.merge(attr)
-      attr = Tag.build_attributes [attr]
-      "<input#{attr}>"
+    attr_reader :tag, :attr, :value
+
+    def initialize(user, name, opts)
+      @tag = 'input'
+      @attr = { 'name' => name, 'type' => 'text', 'value' => user[name].to_s }
+      @attr = opts.merge(attr)
+      @value = nil
     end
   end
 end

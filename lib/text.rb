@@ -4,12 +4,14 @@
 module HexletCode
   # The Text area tag render
   class Text
-    def self.render(user, name, node)
-      node.delete(:as)
-      attr = { cols: 20, rows: 40 }
-      attr = attr.merge(node)
-      attr = Tag.build_attributes [attr]
-      "<textarea#{attr}>#{user[name]}</textarea>"
+    attr_reader :tag, :attr, :value
+
+    def initialize(user, name, opts)
+      @tag = 'textarea'
+      @attr = { 'name' => name, :cols => 20, :rows => 40 }
+      opts = opts.except(:as)
+      @attr = attr.merge(opts)
+      @value = user[name].to_s
     end
   end
 end

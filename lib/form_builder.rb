@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Form module
+# The HexletCode module
 module HexletCode
   # Form Builder class
   class FormBuilder
@@ -13,11 +13,19 @@ module HexletCode
 
     def input(name, options = {})
       @user.public_send(name)
-      add_node(options.merge({ 'name' => name }))
+      label = Label.new(name)
+      add_node(label)
+      node = if options[:as] == :text
+               Text.new(@user, name, options)
+             else
+               Input.new(@user, name, options)
+             end
+      add_node(node)
     end
 
     def submit(name = 'Save')
-      add_node({ 'name' => name, 'type' => 'submit' })
+      node = Submit.new(name)
+      add_node(node)
     end
 
     private
