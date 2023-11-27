@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-# The HexletCode module
 module HexletCode
-  # The Text area tag render
   class Text
     attr_reader :tag, :attr, :value
 

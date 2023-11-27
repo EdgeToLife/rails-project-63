@@ -2,7 +2,6 @@
 
 require_relative 'hexlet_code/version'
 
-# The Form module
 module HexletCode
   class Error < StandardError; end
   autoload :Tag, File.join(File.dirname(__FILE__), 'tag.rb')
@@ -18,7 +17,6 @@ module HexletCode
     render.to_html(params)
   end
 
-  # Form Render class
   class Render
     def initialize(nodes)
       @nodes = nodes

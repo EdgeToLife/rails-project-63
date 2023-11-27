@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-# The HexletCode module
 module HexletCode
-  # The Input tag class
   class Input
     attr_reader :tag, :attr, :value
 
