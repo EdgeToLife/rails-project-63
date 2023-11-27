@@ -17,4 +17,6 @@ Metrics/MethodLength:
 
 Lint/EmptyBlock:
   Enabled: true
-  
+
+Style/Documentation:
+  Enabled: false
