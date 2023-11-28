@@ -10,7 +10,6 @@ module HexletCode
     end
 
     def input(name, options = {})
-      @user.public_send(name)
       @nodes << Label.new(name)
       @nodes << if options[:as] == :text
                   Text.new(@user, name, options)
