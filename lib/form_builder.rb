@@ -2,7 +2,7 @@
 
 module HexletCode
   class FormBuilder
-    attr_reader :nodes
+    attr_reader :nodes, :user
 
     def initialize(user)
       @user = user
@@ -10,16 +10,16 @@ module HexletCode
     end
 
     def input(name, options = {})
-      @nodes << Label.new(name)
-      @nodes << if options[:as] == :text
-                  Text.new(@user, name, options)
-                else
-                  Input.new(@user, name, options)
-                end
+      nodes << Label.new(name)
+      nodes << if options[:as] == :text
+                 Text.new(user, name, options)
+               else
+                 Input.new(user, name, options)
+               end
     end
 
     def submit(name = 'Save')
-      @nodes << Submit.new(name)
+      nodes << Submit.new(name)
     end
   end
 end
