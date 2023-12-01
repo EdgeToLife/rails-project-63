@@ -129,7 +129,7 @@ class TestHexletCode < Minitest::Test
   def test_form_for_with_submit
     user = User.new name: 'rob'
     expected = get_fixture 'test_form_for_with_submit'
-    actual = HexletCode.form_for(user, url: '/profile', method: :get, class: 'hexlet-form', &(->(f) { f.submit }))
+    actual = HexletCode.form_for(user, url: '/profile', method: :get, class: 'hexlet-form', &:submit)
     assert_equal expected, actual, "Expected #{expected}\nActual   #{actual}"
   end
 end
