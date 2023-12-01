@@ -25,15 +25,13 @@ module HexletCode
 
     def render(params)
       Tag.build('form', params) do |_|
-        html = ''
-        @nodes.each do |node|
-          html += if node.value.nil?
-                    Tag.build(node.tag, node.attr)
-                  else
-                    Tag.build(node.tag, node.attr) { node.value }
-                  end
-        end
-        html
+        @nodes.map do |node|
+          if node.value.nil?
+            Tag.build(node.tag, node.attr)
+          else
+            Tag.build(node.tag, node.attr) { node.value }
+          end
+        end.join
       end
     end
   end
