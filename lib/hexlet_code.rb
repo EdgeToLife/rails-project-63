@@ -10,11 +10,12 @@ module HexletCode
   autoload :Input, File.join(File.dirname(__FILE__), 'input.rb')
   autoload :Text, File.join(File.dirname(__FILE__), 'text.rb')
   autoload :Submit, File.join(File.dirname(__FILE__), 'submit.rb')
+
   def self.form_for(user, params = {})
     builder = FormBuilder.new(user)
     yield builder
     render = Render.new(builder.nodes)
-    render.to_html(params)
+    render.render(params)
   end
 
   class Render
@@ -22,20 +23,18 @@ module HexletCode
       @nodes = nodes
     end
 
-    def to_html(params)
-      url = params.delete(:url) || '#'
-      method = params.delete(:method) || 'post'
-      form_attr = Tag.build_attributes params
-      html = render @nodes
-      "<form action='#{url}' method='#{method}'#{form_attr}>#{html}</form>"
-    end
-
-    def render(nodes)
-      html = ''
-      nodes.each do |node|
-        html += Tag.build(node.tag, node.attr) { node.value }
+    def render(params)
+      Tag.build('form', params) do |_|
+        html = ''
+        @nodes.each do |node|
+          html += if node.value.nil?
+                    Tag.build(node.tag, node.attr)
+                  else
+                    Tag.build(node.tag, node.attr) { node.value }
+                  end
+        end
+        html
       end
-      html
     end
   end
 end
