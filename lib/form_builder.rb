@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require "active_support/all"
+require 'active_support/all'
 
 module HexletCode
   class FormBuilder
