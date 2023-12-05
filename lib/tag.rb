@@ -5,11 +5,6 @@ module HexletCode
   # It is used to generate HTML code from Ruby objects.
   class Tag
     def self.build(tag, options = {})
-      if tag == 'form'
-        options[:action] = options[:url] || '#'
-        options.delete(:url)
-        options[:method] = options[:method] || 'post'
-      end
       params = build_attributes options
       block_given? ? "<#{tag}#{params}>#{yield}</#{tag}>" : "<#{tag}#{params}></#{tag}>"
     end

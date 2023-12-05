@@ -2,12 +2,12 @@
 
 module HexletCode
   class Label
-    attr_reader :tag, :attr, :value
+    attr_reader :tag, :attr, :content
 
     def initialize(name)
       @tag = 'label'
       @attr = { 'for' => name }
-      @value = name.capitalize
+      @content = name.capitalize
     end
   end
 end

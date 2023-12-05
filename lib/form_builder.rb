@@ -4,7 +4,7 @@ module HexletCode
   class FormBuilder
     attr_reader :nodes, :user
 
-    def initialize(user)
+    def initialize(user, options = {})
       @user = user
       @nodes = []
     end

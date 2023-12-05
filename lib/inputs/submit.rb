@@ -2,12 +2,12 @@
 
 module HexletCode
   class Submit
-    attr_reader :tag, :attr, :value
+    attr_reader :tag, :attr, :content
 
     def initialize(name)
       @tag = 'input'
       @attr = { 'type' => 'submit', 'value' => name }
-      @value = nil
+      @content = nil
     end
   end
 end
