@@ -16,7 +16,7 @@ class TestHexletCode < Minitest::Test
   end
 
   def test_form_for
-    expected = "<form action='#' method='post'></form>"
+    expected = get_fixture 'test_form_for'
     # rubocop:disable Lint/EmptyBlock
     actual = HexletCode.form_for @user do |f|
     end
@@ -25,7 +25,7 @@ class TestHexletCode < Minitest::Test
   end
 
   def test_form_for_with_url
-    expected = "<form action='/users' method='post'></form>"
+    expected = get_fixture 'test_form_for_with_url'
     # rubocop:disable Lint/EmptyBlock
     actual = HexletCode.form_for @user, url: '/users' do |f|
     end
