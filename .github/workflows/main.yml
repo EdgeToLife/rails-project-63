@@ -24,7 +24,7 @@ jobs:
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: false
     - name: Make instaall
-      run: make setup
+      run: make install
     - name: Run the default task
       run: bundle exec rake
     - name: Run Rubocop Linter
