@@ -4,18 +4,16 @@ module HexletCode
   class FormBuilder
     attr_reader :nodes, :user
 
-    def initialize(user, options = {})
+    def initialize(user)
       @user = user
       @nodes = []
     end
 
     def input(name, options = {})
       nodes << Label.new(name)
-      nodes << if options[:as] == :text
-                 Text.new(user, name, options)
-               else
-                 Input.new(user, name, options)
-               end
+      input_type = options[:as] || 'input'
+      input_class = "HexletCode::#{input_type.capitalize}".constantize
+      nodes << input_class.new(user, name, options)
     end
 
     def submit(name = 'Save')

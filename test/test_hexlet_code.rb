@@ -3,7 +3,6 @@
 require_relative 'test_helper'
 require_relative '../lib/hexlet_code'
 
-# rubocop:disable Metrics/ClassLength
 class TestHexletCode < Minitest::Test
   User = Struct.new(:name, :job, :gender, keyword_init: true)
 
@@ -97,4 +96,3 @@ class TestHexletCode < Minitest::Test
     assert_equal expected, actual, "Expected #{expected}\nActual   #{actual}"
   end
 end
-# rubocop:enable Metrics/ClassLength
